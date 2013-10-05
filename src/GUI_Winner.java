@@ -4,13 +4,10 @@ import java.awt.event.*;
 import java.io.*;
 import javax.sound.sampled.*;
 
-public class GUI_Winner implements ActionListener
+public class GUI_Winner extends GUI_GameResult implements ActionListener
 {
-    private JFrame parentFrame;
     private JFrame congratulationsFrame;
     private JLabel answerLabel;
-    private JLabel secretWordLabel;
-    private JLabel gameResultLabel;
     private JButton returnBtn;
     private ImageIcon background;
     private JPanel imagePanel;

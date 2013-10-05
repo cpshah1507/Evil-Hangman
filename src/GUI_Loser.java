@@ -4,14 +4,8 @@ import java.awt.event.*;
 import java.io.*;
 import javax.sound.sampled.*;
 
-public class GUI_Loser implements ActionListener
+public class GUI_Loser extends GUI_GameResult implements ActionListener
 {
-    private JFrame parentFrame;
-    private JFrame loserFrame;
-    private JLabel secretWordLabel;
-    private JLabel gameResultLabel;
-    private JButton rtnBtn;
-
     public GUI_Loser(String Letters, JFrame frame)
     {
        
