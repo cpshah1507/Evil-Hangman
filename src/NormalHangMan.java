@@ -12,14 +12,9 @@ import static org.junit.Assert.fail;
 import java.util.*;
 
 import org.junit.Test;
-public class NormalHangMan implements HangmanGame
-{
-	private String originSecretWord = "";//To store the secret word
-    private int guessesRemaining;//to store the number of guess for the user
+public class NormalHangMan extends HangMan implements HangmanGame
+{    
     private int numLettersLeft;//to store the number of the letters in the secret word has not been guessed correctly
-    private String currentState = "";//store the current guessing situation
-    private String history = "";//store the letter user has tried
-    private char guess;//the letter the user guess right now
 
     /**
      * Constructor sets up the game to be played with a word and some number of
@@ -32,7 +27,7 @@ public class NormalHangMan implements HangmanGame
      * @param numGuesses the number of guesses allowed
      */
     public NormalHangMan(String secretWord, int numGuesses, String LetterHistory){
-        originSecretWord = secretWord;
+    	this.secretWord = secretWord;
         guessesRemaining = numGuesses;
         numLettersLeft = secretWord.length();
         for(int i = 0; i < secretWord.length(); i++)
@@ -47,17 +42,9 @@ public class NormalHangMan implements HangmanGame
                 }
             }
         }
-        history = LetterHistory;
+        guessHistory = LetterHistory;
     }   
 
-    public String getSecretWord()
-    {
-        return originSecretWord;
-    }
-    public int numGuessesRemaining()
-    {
-        return guessesRemaining;
-    }
     public int numLettersRemaining()
     {
         return numLettersLeft;
@@ -76,14 +63,7 @@ public class NormalHangMan implements HangmanGame
         else
             return false;
     }
-    public String lettersGuessed()
-    {
-        return history;
-    }
-    public String displayGameState()
-    {
-        return currentState;
-    }
+    
     public boolean makeGuess(char ch)
     {
     	if (Character.isLetter(ch) == false) return false;
@@ -92,9 +72,9 @@ public class NormalHangMan implements HangmanGame
         
         tempB = updateState(ch);
         
-        if (!alreadyGuessed(ch))
+        if (!isRepeatInput(ch))
         {
-            history = history + guess;
+        	guessHistory = guessHistory + guess;
 
             if (tempB)
             {
@@ -113,14 +93,14 @@ public class NormalHangMan implements HangmanGame
     public boolean updateState(char ch)
     {
     	boolean isLetterInGameSet = true;
-    	for (int i = 0; i < originSecretWord.length(); i++)
+    	for (int i = 0; i < secretWord.length(); i++)
         {
-            if (originSecretWord.charAt(i) == ch)//if the user guess right, adjust the current state.
+            if (secretWord.charAt(i) == ch)//if the user guess right, adjust the current state.
             {
                 String temp = "";
-                for (int j = 0; j < originSecretWord.length(); j++)
+                for (int j = 0; j < secretWord.length(); j++)
                 {
-                    if (originSecretWord.charAt(j) == ch)
+                    if (secretWord.charAt(j) == ch)
                     {
                         temp = temp + ch + " ";
                     }
@@ -140,16 +120,6 @@ public class NormalHangMan implements HangmanGame
         }
     	return isLetterInGameSet;
     }
-    
-    public boolean alreadyGuessed(char c)
-    {
-    	for (int i = 0; i < history.length(); i++) {
-    		if (history.charAt(i) == c) return true;
-    	}
-    	return false;
-    }
-    
-   
 }
     
        

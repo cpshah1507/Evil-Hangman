@@ -2,19 +2,15 @@ import java.util.*;
 import java.io.*;
 
 
-public class EvilHangMan implements HangmanGame {
-	private String secretWord = "";// To store the secret word
-	private int guess;// to store the number of guess for the user
-	private String state = "";// store the current guessing situation
-	private String letterGuessHistory = "";// store the letters user has tried
-	private char letterGuess;// the letter the user guess right now
+public class EvilHangMan extends HangMan implements HangmanGame {
+
 	private String[] wordlist = new String[235000];// to store the dictionary
 	private int numWords = 0;// count the number of possible secret words.
 	private int secretStringLength;// the length of the secret string
 	private boolean guessResult = false;
 
 	public EvilHangMan(int StringLength, int numGuesses) {
-		guess = numGuesses;
+		guessesRemaining = numGuesses;
 		secretStringLength = StringLength;
 		Scanner scanner = null;
 		try {
@@ -33,18 +29,10 @@ public class EvilHangMan implements HangmanGame {
 		}
 
 		for (i = 0; i < StringLength; i++) {
-			state += "_ ";
+			currentState += "_ ";
 		}
 		scanner.close();
 
-	}
-
-	public String getSecretWord() {
-		return secretWord;
-	}
-
-	public int numGuessesRemaining() {
-		return guess;
 	}
 
 	public int numLettersRemaining() {
@@ -56,26 +44,17 @@ public class EvilHangMan implements HangmanGame {
 	}
 
 	public boolean gameOver() {
-		if (guess == 0)
+		if (guessesRemaining == 0)
 			return true;
 		else
 			return false;
 	}
 
-	public String lettersGuessed() {
-		return letterGuessHistory;
-	}
-
-	public String displayGameState() {
-		return state;
-	}
-
-
 	public boolean makeGuess(char ch) {
 
 		System.out.println("makeGuess: " + ch + "; numWords=" + numWords);
 		guessResult = false;
-		letterGuess = ch;
+		guess = ch;
 		if (Character.isLetter(ch) && !isRepeatInput(ch)) {
 			// adjust the Wordlist in order to avoid the word with the letter
 			// user guessed
@@ -120,23 +99,15 @@ public class EvilHangMan implements HangmanGame {
 				secretWord = temp[0];
 				numWords = tempWordNum;
 				wordlist = temp;
-				guess--;
+				guessesRemaining--;
 				guessResult = false;
 			}
 			if (!guessResult) {
-				letterGuessHistory = letterGuessHistory + letterGuess;
+				guessHistory = guessHistory + guess;
 			}
 
 		} else return false;
 		
 		return guessResult;
 	}
-
-    public boolean isRepeatInput(char c)
-    {
-    	for (int i = 0; i < letterGuessHistory.length(); i++) {
-    		if (letterGuessHistory.charAt(i) == c) return true;
-    	}
-    	return false;
-    }
 }
