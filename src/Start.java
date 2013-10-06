@@ -116,6 +116,7 @@ public class Start extends JPanel implements ActionListener {
     }
  
     public static void main(String[] args) {
+    	
     	createAndShowGUI();
 
     }

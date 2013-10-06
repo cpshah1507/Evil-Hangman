@@ -169,4 +169,16 @@ public class NormalHangmanTest {
 		assertTrue(hm.gameOver());
 		assertFalse(hm.isWin());
 	}
+	
+	@Test
+	public void testAlreadyGuessed() {
+		// Test if the letter being guessed is in the secret word 
+    	assertTrue(hm.updateState('S'));
+	}
+    
+    @Test
+	public void testWrongGuess() {
+    	// Test if the letter being guessed is wrong
+    	assertFalse(hm.updateState('A'));
+	}
 }

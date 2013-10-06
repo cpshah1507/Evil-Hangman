@@ -7,11 +7,13 @@
  * 
  * <p>This class can then be used by a user interface to administer a regular game of Hangman.</p>
  */
+import static org.junit.Assert.fail;
+
 import java.util.*;
+
+import org.junit.Test;
 public class NormalHangMan implements HangmanGame
 {
-    
-
 	private String originSecretWord = "";//To store the secret word
     private int guessesRemaining;//to store the number of guess for the user
     private int numLettersLeft;//to store the number of the letters in the secret word has not been guessed correctly
@@ -87,7 +89,31 @@ public class NormalHangMan implements HangmanGame
     	if (Character.isLetter(ch) == false) return false;
         boolean tempB = true;
         guess = ch;
-        for (int i = 0; i < originSecretWord.length(); i++)
+        
+        tempB = updateState(ch);
+        
+        if (!alreadyGuessed(ch))
+        {
+            history = history + guess;
+
+            if (tempB)
+            {
+                numLettersLeft--;
+            }
+            else
+            {
+                guessesRemaining--;
+            }
+            return tempB;
+        }
+        else return false;
+    }
+    
+    
+    public boolean updateState(char ch)
+    {
+    	boolean isLetterInGameSet = true;
+    	for (int i = 0; i < originSecretWord.length(); i++)
         {
             if (originSecretWord.charAt(i) == ch)//if the user guess right, adjust the current state.
             {
@@ -104,29 +130,15 @@ public class NormalHangMan implements HangmanGame
                     }
                 }
                 currentState = temp;
-                tempB = true;
+                isLetterInGameSet = true;
                 break;
             }
             else
             {
-                tempB = false;
+            	isLetterInGameSet = false;
             }
         }
-        if (!alreadyGuessed(ch))
-        {
-            history = history + guess;
-
-            if (tempB)
-            {
-                numLettersLeft--;
-            }
-            else
-            {
-                guessesRemaining--;
-            }
-            return tempB;
-        }
-        else return false;
+    	return isLetterInGameSet;
     }
     
     public boolean alreadyGuessed(char c)

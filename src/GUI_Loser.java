@@ -1,11 +1,14 @@
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
+
 import javax.sound.sampled.*;
 
 public class GUI_Loser extends GUI_GameResult implements ActionListener
 {
+	private JFrame loserFrame;
     public GUI_Loser(String Letters, JFrame frame)
     {
        
@@ -17,9 +20,9 @@ public class GUI_Loser extends GUI_GameResult implements ActionListener
         
         secretWordLabel = new JLabel("The answer is "+Letters+".");
         gameResultLabel = new JLabel("You are the Loser!");
-        rtnBtn = new JButton("Return to the main menu");
+        returnBtn = new JButton("Return to the main menu");
         
-        rtnBtn.addActionListener(this); 
+        returnBtn.addActionListener(this); 
         
         ImageIcon icon = new ImageIcon("loser.gif"); 
         JLabel loserPic = new JLabel(icon);
@@ -27,7 +30,7 @@ public class GUI_Loser extends GUI_GameResult implements ActionListener
         
         loserFrame.add(secretWordLabel);
         loserFrame.add(gameResultLabel);
-        loserFrame.add(rtnBtn);
+        loserFrame.add(returnBtn);
         loserFrame.add(loserPic);
         
         loserFrame.setVisible(true);

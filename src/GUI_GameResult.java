@@ -7,10 +7,9 @@ import javax.swing.JLabel;
 public class GUI_GameResult {
 
 	protected JFrame parentFrame;
-	protected JFrame loserFrame;
 	protected JLabel secretWordLabel;
 	protected JLabel gameResultLabel;
-	protected JButton rtnBtn;
+	protected JButton returnBtn;
 
 	public GUI_GameResult() {
 		super();

@@ -8,7 +8,6 @@ public class GUI_Winner extends GUI_GameResult implements ActionListener
 {
     private JFrame congratulationsFrame;
     private JLabel answerLabel;
-    private JButton returnBtn;
     private ImageIcon background;
     private JPanel imagePanel;
     
@@ -55,7 +54,6 @@ public class GUI_Winner extends GUI_GameResult implements ActionListener
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(background.getIconWidth(), background.getIconHeight());
         frame.setResizable(false);
-
     }
 
     public void actionPerformed(ActionEvent e)
