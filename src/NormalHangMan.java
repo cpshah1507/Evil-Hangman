@@ -42,7 +42,9 @@ public class NormalHangMan extends HangMan implements HangmanGame
                 }
             }
         }
-        guessHistory = LetterHistory;
+        for (char ch : LetterHistory.toCharArray()) {
+        	guessHistory.add(ch);
+        }
     }   
 
     public int numLettersRemaining()
@@ -74,8 +76,7 @@ public class NormalHangMan extends HangMan implements HangmanGame
         
         if (!isRepeatInput(ch))
         {
-        	guessHistory = guessHistory + guess;
-
+        	guessHistory.add(guess);
             if (tempB)
             {
                 numLettersLeft--;

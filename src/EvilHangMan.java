@@ -103,7 +103,7 @@ public class EvilHangMan extends HangMan implements HangmanGame {
 				guessResult = false;
 			}
 			if (!guessResult) {
-				guessHistory = guessHistory + guess;
+				guessHistory.add(guess);
 			}
 
 		} else return false;
