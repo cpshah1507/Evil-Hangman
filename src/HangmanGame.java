@@ -60,4 +60,7 @@ public interface HangmanGame
      * @return a String showing which letters have already been guessed.
      */
     public String lettersGuessed();
+    
+    /* Setter for Secret Word */
+    public void setSecretWord(String secretword);
 }

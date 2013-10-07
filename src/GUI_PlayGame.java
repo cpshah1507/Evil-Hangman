@@ -6,20 +6,19 @@ import java.util.List;
 
 public class GUI_PlayGame implements ActionListener
 {
-    private JFrame frame;
+	public JFrame frame;
     private JLabel label1;
-    private JLabel label2;
-    private JLabel label3;
-    private HangmanGame game;
-    private char inputLetter;
-    private boolean isEvil = true;
-    private JLabel result;
-
+    public JLabel label2;
+    public JLabel label3;
+    public HangmanGame game;
+    public char inputLetter;
+    public boolean isEvil = true;
+    public JLabel result;
+    private boolean isNormalHangman = false;
 
     public GUI_PlayGame(int letters, int guesses)
     {
     	game = new EvilHangMan(letters, guesses);
-    	
     }
     
     /*
@@ -81,54 +80,12 @@ public class GUI_PlayGame implements ActionListener
         temp.setEnabled(false);
         inputLetter = temp.getText().charAt(0);
         check(inputLetter); // make sure it's a valid choice
-        controller();
-    }
-
-    
-    /*
-     * This handles the logic of sending info to the Game object.
-     */
-    public void controller()
-    {
-        //handle the user choice, and pass the data to the model
-        char nextLetter = Character.toUpperCase(inputLetter);
-
-        if (game.makeGuess(nextLetter))
+        isEvil = HangMan.controller(this.inputLetter,this.isEvil,this.label2,this.label3,this.result,this.frame,this.game);
+        if(isEvil == false && isNormalHangman == false)
         {
-            if (isEvil)//judge whether the hangman is evil
-            {
-                //if in the evil statement, and the user guess right, 
-            	// it means it is the time to turn the evil to the regular hangmam
-                result.setText("Yes!");
-                String secretString = game.getSecretWord();
-                int guessesRemaining = game.numGuessesRemaining();
-                String letterHistory = game.lettersGuessed();
-                game = new NormalHangMan(secretString, guessesRemaining,letterHistory);//turn the evil to regular hangman
-                isEvil = false;
-                game.makeGuess(nextLetter);//re-value the user guess when turn to the regular hangman for the first time
-            }
-            else
-            {
-                result.setText("Yes!");
-            }
-        }
-        else
-        {
-            result.setText("Nope!");
-        }
-
-        label2.setText("Secret Word: "+game.displayGameState());
-        label3.setText(String.valueOf("Guesses Remaining: "+ game.numGuessesRemaining()));
-        if (game.gameOver())
-        {
-            if (game.isWin())
-            {
-                new GUI_Winner(game.displayGameState(),frame);
-            }
-            else
-            {
-                new GUI_Loser(game.getSecretWord(),frame);
-            }
+        	//first time when game mode is changed from evil to normal hangman
+        	game = HangMan.createNormalHangMan(game,this.inputLetter);//turn the evil to regular hangman
+        	isNormalHangman = true;
         }
     }
 

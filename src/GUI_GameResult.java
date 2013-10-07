@@ -15,4 +15,5 @@ public class GUI_GameResult {
 		super();
 	}
 
+	
 }
